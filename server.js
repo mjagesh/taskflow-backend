@@ -13,16 +13,16 @@ connectDB();
 
 const app = express();
 
+app.use(express.json());
+
 app.use(cors({
-  origin: [
-    "http://localhost:3000",
-    "https://taskflow-frontend-neon.vercel.app"
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-app.use(express.json());
+app.options('*', cors());
+
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
